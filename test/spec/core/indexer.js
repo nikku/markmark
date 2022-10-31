@@ -69,6 +69,36 @@ describe('core/indexer', () => {
     }
   });
 
+
+  it('should remove item', async () => {
+
+    // given
+    const removedItems = [];
+
+    eventBus.on('indexer:removed', (item) => {
+      removedItems.push(item);
+    });
+
+    watcher.addFolder(pathToFileURL('test/fixtures/notes').toString());
+
+    await on('indexer:ready', eventBus);
+
+    // when
+    const [ firstItem ] = indexer.getItems();
+
+    // removing locally
+    indexer.remove(firstItem.uri, true);
+
+    // then
+    expect(removedItems).to.be.empty;
+
+    // actually removing
+    indexer.remove(firstItem.uri);
+
+    // then
+    expect(removedItems).to.eql([ firstItem ]);
+  });
+
 });
 
 

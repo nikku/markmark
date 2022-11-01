@@ -99,6 +99,51 @@ describe('core/indexer', () => {
     expect(removedItems).to.eql([ firstItem ]);
   });
 
+
+  it('should eagerly fetch index item', async () => {
+
+    // given
+    const uri = pathToFileURL('test/fixtures/notes/IDEAS.md').toString();
+
+    // file-backed version added
+    indexer.add(uri);
+
+    // when
+    const item = await indexer.get(uri);
+
+    // then
+    expect(item.parseTree).to.exist;
+    expect(item.parseTree.anchors).to.have.length(3);
+    expect(item.parseTree.links).to.have.length(3);
+
+    // but when
+    // local override added
+    indexer.fileOpen({
+      uri,
+      value: '# hello world!'
+    });
+
+    // when
+    const openedItem = await indexer.get(uri);
+
+    // then
+    expect(openedItem.parseTree).to.exist;
+    expect(openedItem.parseTree.anchors).to.have.length(2);
+    expect(openedItem.parseTree.links).to.have.length(0);
+
+    // but when
+    // local override closed
+    indexer.fileClosed(uri);
+
+    // when
+    const closedItem = await indexer.get(uri);
+
+    // then
+    expect(closedItem.parseTree).to.exist;
+    expect(closedItem.parseTree.anchors).to.have.length(3);
+    expect(closedItem.parseTree.links).to.have.length(3);
+  });
+
 });
 
 

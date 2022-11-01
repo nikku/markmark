@@ -10,11 +10,7 @@ export type Node = (Content|Root) & UnistNode;
 
 export type DocumentRef = { uri: string, position: Position };
 
-export type File = VFile & {
- data: {
-   uri: string
- }
-}
+export type File = VFile;
 
 export type TaggedRoot = Root & {
   anchors: DocumentRef[],

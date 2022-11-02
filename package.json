@@ -20,7 +20,7 @@
   ],
   "dependencies": {
     "chokidar": "^3.5.3",
-    "github-slugger": "^1.4.0",
+    "github-slugger": "^2.0.0",
     "mdast-util-to-string": "^3.1.0",
     "remark-frontmatter": "^4.0.1",
     "remark-gfm": "^3.0.1",

@@ -42,6 +42,7 @@ describe('core/indexer', () => {
       expect(item.parseTree).to.exist;
       expect(item.parseTree.anchors).to.exist;
       expect(item.parseTree.links).to.exist;
+      expect(item.parseTree.tags).to.exist;
     }
   });
 
@@ -66,6 +67,7 @@ describe('core/indexer', () => {
       expect(item.parseTree).to.exist;
       expect(item.parseTree.anchors).to.exist;
       expect(item.parseTree.links).to.exist;
+      expect(item.parseTree.tags).to.exist;
     }
   });
 
@@ -115,6 +117,7 @@ describe('core/indexer', () => {
     expect(item.parseTree).to.exist;
     expect(item.parseTree.anchors).to.have.length(3);
     expect(item.parseTree.links).to.have.length(3);
+    expect(item.parseTree.tags).to.have.length(1);
 
     // but when
     // local override added

@@ -5,16 +5,20 @@ import { Node as UnistNode } from 'unist';
 
 import { Root, Content, Heading, Definition } from 'mdast';
 
-
 export type Node = (Content|Root) & UnistNode;
 
-export type DocumentRef = { uri: string, position: Position };
+export type DocumentRef = {
+  uri?: string,
+  position: Position,
+  value?: string
+};
 
 export type File = VFile;
 
 export type TaggedRoot = Root & {
   anchors: DocumentRef[],
-  links: DocumentRef[]
+  links: DocumentRef[],
+  tags: DocumentRef[]
 };
 
 export type Positioned = {

@@ -4,10 +4,24 @@ import { toVFile } from 'to-vfile';
 
 import { expect } from 'chai';
 
+import { createRequire } from 'module';
+
+const require = createRequire(import.meta.url);
+
+const parseTree_LINKS = require('./markdown.parseTree.LINKS.json');
+
+
 const remark = _remark();
 
-const markdown = `
+describe('core/markdown', () => {
+
+  it('should transform markdown', async () => {
+
+    // given
+    const markdown = `
 # Ideas
+
+#foo
 
 [](./NOTES.md)
 [[PUNCH_LINE]]
@@ -22,13 +36,7 @@ To get super powers.
 [local link](#ideas)
 `;
 
-
-describe('core/markdown', () => {
-
-  it('should transform markdown', async () => {
-
-    // given
-    const file = toVFile(markdown);
+    const file = toVFile({ value: markdown });
 
     // when
     const tree = remark.parse(file);
@@ -36,8 +44,31 @@ describe('core/markdown', () => {
     const transformedTree = await remark.run(tree, file);
 
     // then
-    expect(transformedTree.links).to.exist;
-    expect(transformedTree.anchors).to.exist;
+    expect(transformedTree.links).to.have.length(3);
+    expect(transformedTree.anchors).to.have.length(3);
+    expect(transformedTree.tags).to.have.length(1);
+  });
+
+
+  it('should recognize tags', async () => {
+
+    // given
+    const markdown = `
+# heading
+
+#some-tag, #other_tag
+#tag no-tag
+[](./rel#link)
+![](./rel.png#image)
+`;
+
+    const file = toVFile({ value: markdown });
+
+    // when
+    const tree = remark.parse(file);
+
+    // then
+    expect(tree).to.eql(parseTree_LINKS);
   });
 
 });

@@ -1,7 +1,7 @@
 # Ideas
 
 [](./NOTES.md)
-[[PUNCH_LINE]]
+#PUNCH_LINE
 
 ## Connect This and That
 

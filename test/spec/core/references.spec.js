@@ -47,7 +47,7 @@ describe('core/references', () => {
           uri: 'file:///tmp/IDEAS.md#ideas'
         },
         {
-          uri: 'file:///tmp/IDEAS.md#connecting-systems-and-people-across-functions'
+          uri: 'file:///tmp/IDEAS.md#connect-this-and-that'
         },
         {
           uri: 'file:///tmp/IDEAS.md',
@@ -128,11 +128,11 @@ describe('core/references', () => {
           uri: 'file:///tmp/NOTES.md',
           position: {
             start: {
-              line: 4,
+              line: 3,
               column: 1
             },
             end: {
-              line: 4,
+              line: 3,
               column: 12
             }
           }
@@ -143,6 +143,32 @@ describe('core/references', () => {
           {
             uri: 'file:///tmp/IDEAS.md',
             targetUri: 'file:///tmp/NOTES.md#deeplink'
+          }
+        ]);
+      });
+
+
+      it('to tag', () => {
+
+        // when
+        const refs = references.findReferences({
+          uri: 'file:///tmp/IDEAS.md',
+          position: {
+            start: {
+              line: 4,
+              column: 6
+            },
+            end: {
+              line: 4,
+              column: 6
+            }
+          }
+        });
+
+        // then
+        expectRefs(refs, [
+          {
+            uri: 'file:///tmp/IDEAS.md'
           }
         ]);
       });

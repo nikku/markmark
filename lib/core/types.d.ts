@@ -1,6 +1,6 @@
 import { VFile } from 'vfile';
 
-import { Position } from 'unist';
+import { Position, Point } from 'unist';
 import { Node as UnistNode } from 'unist';
 
 import { Root, Content, Heading, Definition } from 'mdast';
@@ -39,5 +39,6 @@ export {
   Root,
   Heading,
   Definition,
-  Position
+  Position,
+  Point
 };

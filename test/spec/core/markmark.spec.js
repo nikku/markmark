@@ -19,7 +19,7 @@ describe('core/markmark', () => {
   it('should index directory', async () => {
 
     // when
-    markmark.addFolder(pathToFileURL('test/fixtures/notes').toString());
+    markmark.addRoot(pathToFileURL('test/fixtures/notes').toString());
 
     await on('ready', markmark);
     await on('references:changed', markmark);

@@ -30,6 +30,7 @@
     "unist-util-index": "^3.0.1",
     "unist-util-visit": "^4.1.1",
     "vfile": "^5.3.5",
+    "vfile-location": "^4.0.1",
     "vfile-message": "^3.0.0",
     "vscode-languageserver": "^8.0.2",
     "vscode-languageserver-textdocument": "^1.0.7"

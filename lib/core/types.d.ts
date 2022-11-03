@@ -7,23 +7,37 @@ import { Root, Content, Heading, Definition } from 'mdast';
 
 export type Node = (Content|Root) & UnistNode;
 
-export type DocumentRef = {
+export type DocumentRange = {
   uri?: string,
   position: Position,
   value?: string
 };
 
+export type DocumentLocation = {
+  uri: string,
+  position: Point
+};
+
 export type File = VFile;
 
 export type TaggedRoot = Root & {
-  anchors: DocumentRef[],
-  links: DocumentRef[],
-  tags: DocumentRef[]
+  anchors: DocumentRange[],
+  links: DocumentRange[],
+  tags: DocumentRange[]
 };
 
 export type Positioned = {
   uri: string,
   position: Position
+};
+
+export type Completion = {
+  label: string,
+  replace: {
+    position: Position,
+    newText: string
+  },
+  detail?: string
 };
 
 export interface IndexItem extends Record<string, any> {

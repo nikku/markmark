@@ -25,7 +25,7 @@ npm install -g markmark
 
 ## Use
 
-Start the language server (depends on your editors integration):
+Start the language server (depends on the LSP integration of your editor):
 
 ```
 markmark-lsp --stdio

@@ -30,3 +30,8 @@ Start the language server (depends on your editors integration):
 ```
 markmark-lsp --stdio
 ```
+
+
+## License
+
+MIT

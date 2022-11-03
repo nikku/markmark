@@ -1,13 +1,13 @@
 # Ideas
 
-[](./NOTES.md)
 #PUNCH_LINE
+
 
 ## Connect This and That
 
-To get super powers.
+To get super powers, cf. [notes](./NOTES.md#deeplink).
 
 
-[](./NOTES.md#deeplink)
+---
 
-[local link](#ideas)
+Back to [top](#ideas).

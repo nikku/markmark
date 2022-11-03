@@ -116,7 +116,7 @@ describe('core/indexer', () => {
     // then
     expect(item.parseTree).to.exist;
     expect(item.parseTree.anchors).to.have.length(3);
-    expect(item.parseTree.links).to.have.length(3);
+    expect(item.parseTree.links).to.have.length(2);
     expect(item.parseTree.tags).to.have.length(1);
 
     // but when
@@ -144,7 +144,7 @@ describe('core/indexer', () => {
     // then
     expect(closedItem.parseTree).to.exist;
     expect(closedItem.parseTree.anchors).to.have.length(3);
-    expect(closedItem.parseTree.links).to.have.length(3);
+    expect(closedItem.parseTree.links).to.have.length(2);
   });
 
 });

@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/nikku/markmark/actions/workflows/CI.yml/badge.svg)](https://github.com/nikku/markmark/actions/workflows/CI.yml)
 
-Language tooling for markdown. Use standalone or plug-in as a [language server](https://microsoft.github.io/language-server-protocol/) into your favorite IDE.
+Language tooling for [Markdown](https://en.wikipedia.org/wiki/Markdown) files. Use standalone or plug-in as a [language server](https://microsoft.github.io/language-server-protocol/) into your favorite IDE.
 
 
 ## What is this

@@ -15,6 +15,7 @@ const IDEAS_URI = pathToFileURL('test/fixtures/notes/IDEAS.md').toString();
 
 const COMPLETIONS_ROOT_URI = pathToFileURL('test/fixtures/completions').toString();
 const BASE_URI = pathToFileURL('test/fixtures/completions/BASE.md').toString();
+const HEADING_URI = pathToFileURL('test/fixtures/completions/HEADING.md').toString();
 const ANCHOR_URI = pathToFileURL('test/fixtures/completions/ANCHOR.md').toString();
 const TAGGED_URI = pathToFileURL('test/fixtures/completions/TAGGED.md').toString();
 
@@ -39,6 +40,7 @@ describe('core/completions', () => {
     await indexer.add(ANCHOR_URI);
     await indexer.add(BASE_URI);
     await indexer.add(TAGGED_URI);
+    await indexer.add(HEADING_URI);
 
     indexer.addRoot(NOTES_ROOT_URI);
     await indexer.add(IDEAS_URI);
@@ -142,9 +144,9 @@ describe('core/completions', () => {
 
     // when
     const items = await completions.get({
-      uri: BASE_URI,
+      uri: HEADING_URI,
       position: {
-        line: 14,
+        line: 1,
         column: 2
       }
     });
@@ -159,14 +161,14 @@ describe('core/completions', () => {
       replace: {
         position: {
           start: {
-            line: 14,
+            line: 1,
             column: 1,
-            offset: 109
+            offset: 0
           },
           end: {
-            line: 14,
+            line: 1,
             column: 2,
-            offset: 110
+            offset: 1
           }
         },
         newText: '#' + tag
@@ -316,6 +318,24 @@ describe('core/completions', () => {
           },
           'newText': './TAGGED.md'
         }
+      },
+      {
+        'label': './HEADING.md',
+        'replace': {
+          'newText': './HEADING.md',
+          'position': {
+            'end': {
+              'column': 4,
+              'line': 3,
+              'offset': 17
+            },
+            'start': {
+              'column': 4,
+              'line': 3,
+              'offset': 17
+            }
+          }
+        }
       }
     ]);
   });
@@ -361,12 +381,12 @@ describe('core/completions', () => {
             'start': {
               'line': 7,
               'column': 4,
-              'offset': 43
+              'offset': 44
             },
             'end': {
               'line': 7,
               'column': 8,
-              'offset': 47
+              'offset': 48
             }
           },
           'newText': './ANCHOR.md#anchor'
@@ -379,12 +399,12 @@ describe('core/completions', () => {
             'start': {
               'line': 7,
               'column': 4,
-              'offset': 43
+              'offset': 44
             },
             'end': {
               'line': 7,
               'column': 8,
-              'offset': 47
+              'offset': 48
             }
           },
           'newText': './ANCHOR.md#deeplink'
@@ -397,18 +417,104 @@ describe('core/completions', () => {
             'start': {
               'line': 7,
               'column': 4,
-              'offset': 43
+              'offset': 44
             },
             'end': {
               'line': 7,
               'column': 8,
-              'offset': 47
+              'offset': 48
             }
           },
           'newText': './ANCHOR.md'
         }
       }
     ]);
+  });
+
+
+  it('should complete link (with image) ref', async () => {
+
+    // [](./A|N)
+
+    // when
+    const refCompletions = await completions.get({
+      uri: BASE_URI,
+      position: {
+        line: 8,
+        column: 24
+      }
+    });
+
+    const expectedCompletions = [
+      './ANCHOR.md#anchor',
+      './ANCHOR.md#deeplink',
+      './ANCHOR.md'
+    ].map(ref => ({
+      'label': ref,
+      'replace': {
+        'position': {
+          'start': {
+            'line': 8,
+            'column': 21,
+            'offset': 70
+          },
+          'end': {
+            'line': 8,
+            'column': 25,
+            'offset': 74
+          }
+        },
+        'newText': ref
+      }
+    }));
+
+    // then
+    expect(refCompletions).to.eql(expectedCompletions);
+  });
+
+
+  it('should complete link (with image) ref', async () => {
+
+    // [](./A|N)
+
+    // when
+    const refCompletions = await completions.get({
+      uri: BASE_URI,
+      position: {
+        line: 4,
+        column: 7
+      }
+    });
+
+    const expectedCompletions = [
+      './ANCHOR.md#anchor',
+      './ANCHOR.md#deeplink',
+      './ANCHOR.md',
+      '#local',
+      './TAGGED.md#tagged',
+      './TAGGED.md',
+      './HEADING.md'
+    ].map(ref => ({
+      'label': ref,
+      'replace': {
+        'position': {
+          'start': {
+            'line': 4,
+            'column': 7,
+            'offset': 25
+          },
+          'end': {
+            'line': 4,
+            'column': 7,
+            'offset': 25
+          }
+        },
+        'newText': ref
+      }
+    }));
+
+    // then
+    expect(refCompletions).to.eql(expectedCompletions);
   });
 
 });

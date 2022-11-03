@@ -1,14 +1,10 @@
 #fo # #fooop
 
 []()
+[foo]()
 [](#)
 [](../)
-[](#l)
 [](./AN)
-[](./)
-[](./ANCHOR.md#)
-[](./ANCHOR.md#deeplink)
+[![asd](./asd.png)](./AN)
 
 ## Local
-
-#

@@ -7,10 +7,13 @@ Language tooling for markdown. Use standalone or plug-in as a [language server](
 
 ## What is this
 
-* Language tooling and code intelligence for markdown files
-    * Go to definition
-    * Find references
-* Exposed as a language server
+Language tooling and code intelligence for markdown files:
+
+* [x] Go to definition
+* [x] Find references
+* [x] Complete links and tags
+
+Exposed as a library, but also as a [language server](https://microsoft.github.io/language-server-protocol/).
 
 
 ## Installation

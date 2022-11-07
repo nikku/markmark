@@ -147,6 +147,25 @@ describe('core/indexer', () => {
     expect(closedItem.parseTree.links).to.have.length(2);
   });
 
+
+  it('should handle non-existing file', async () => {
+
+    // given
+    const uri = pathToFileURL('test/fixtures/NON_EXISTING.md').toString();
+
+    // file-backed version added
+    indexer.add(uri);
+
+    // when
+    const item = await indexer.get(uri);
+
+    // then
+    expect(item.parseTree).to.exist;
+    expect(item.parseTree.anchors).to.have.length(1);
+    expect(item.parseTree.links).to.have.length(0);
+    expect(item.parseTree.tags).to.have.length(0);
+  });
+
 });
 
 

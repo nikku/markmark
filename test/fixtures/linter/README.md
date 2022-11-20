@@ -1,0 +1,10 @@
+# foo
+
+[ASD](#foo)
+[EXTERNAL](./EXTERNAL.md)
+
+[NON_EXISTING](#bar)
+
+[EXTERNAL NON_EXISTING](./EXTERNAL.md#off)
+
+[OTHER NON_EXISTING](./OTHER.md)

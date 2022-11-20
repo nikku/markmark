@@ -172,9 +172,7 @@ describe('core/indexer', () => {
       addFile(path);
     }
 
-    eventBus.emit('watcher:ready');
-
-    return on('indexer:ready');
+    return on('workqueue:empty', eventBus);
   }
 
   function addFile(path) {

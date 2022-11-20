@@ -40,6 +40,17 @@ export type Completion = {
   detail?: string
 };
 
+export type LinterResult = {
+  message: string,
+  severity: 'warn' | 'error' | undefined,
+  position: Position
+};
+
+export type LinterResults = {
+  uri: string,
+  results: LinterResult[]
+};
+
 export interface IndexItem extends Record<string, any> {
   uri: string,
   value?: string,

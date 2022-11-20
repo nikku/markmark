@@ -1,0 +1,50 @@
+[
+  {
+    "position": {
+      "start": {
+        "line": 6,
+        "column": 1,
+        "offset": 46
+      },
+      "end": {
+        "line": 6,
+        "column": 21,
+        "offset": 66
+      }
+    },
+    "message": "Target is unresolved",
+    "severity": "warn"
+  },
+  {
+    "position": {
+      "start": {
+        "line": 8,
+        "column": 1,
+        "offset": 68
+      },
+      "end": {
+        "line": 8,
+        "column": 43,
+        "offset": 110
+      }
+    },
+    "message": "Target is unresolved",
+    "severity": "warn"
+  },
+  {
+    "position": {
+      "start": {
+        "line": 10,
+        "column": 1,
+        "offset": 112
+      },
+      "end": {
+        "line": 10,
+        "column": 33,
+        "offset": 144
+      }
+    },
+    "message": "Target is unresolved",
+    "severity": "warn"
+  }
+]

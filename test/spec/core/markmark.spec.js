@@ -16,13 +16,40 @@ describe('core/markmark', () => {
   });
 
 
-  it('should index directory', async () => {
+  describe('should index', () => {
 
-    // when
-    markmark.addRoot(fileUri('test/fixtures/notes'));
+    it('internal watcher', async () => {
 
-    await on('ready', markmark);
-    await on('references:changed', markmark);
+      // given
+      markmark.init({ watch: true });
+
+      // when
+      markmark.addRoot(fileUri('test/fixtures/notes'));
+
+      // then
+      await on('ready', markmark);
+      await on('references:changed', markmark);
+    });
+
+
+    it('external file change handler', async () => {
+
+      // given
+      markmark.init({ watch: false });
+
+      // when
+      markmark.addRoot(fileUri('test/fixtures/notes'));
+      markmark.addFile(fileUri('test/fixtures/notes/IDEAS.md'));
+      markmark.addFile(fileUri('test/fixtures/notes/NOTES.md'));
+      markmark.updateFile(fileUri('test/fixtures/notes/IDEAS.md'));
+      markmark.removeFile(fileUri('test/fixtures/notes/NON_EXISTING.md'));
+      markmark.removeFile(fileUri('test/fixtures/notes/NOTES.md'));
+
+      // then
+      await on('ready', markmark);
+      await on('references:changed', markmark);
+    });
+
   });
 
 });

@@ -19,7 +19,7 @@ Scalable across many Markdown files:
 * [x] Project awareness
 * [x] Built in or external file watching support
 
-Exposed as a library, but also as a [language server](https://microsoft.github.io/language-server-protocol/).
+Exposed as a [language server](#language-server), but also usable [standalone](#standalone).
 
 
 ## Installation
@@ -31,7 +31,7 @@ npm install -g markmark
 
 ## Usage
 
-### Run as [Language Server](https://microsoft.github.io/language-server-protocol/)
+### [Language Server](https://microsoft.github.io/language-server-protocol/)
 
 Start using `markmark-lsp` binary (depends on the LSP integration of your editor):
 
@@ -40,7 +40,9 @@ markmark-lsp --stdio
 ```
 
 
-### Use as a Library
+### Standalone
+
+Instantiate `markmark` yourself to integrate it into your applications:
 
 ```javascript
 import { Markmark } from 'markmark';

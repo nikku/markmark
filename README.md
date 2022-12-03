@@ -7,7 +7,7 @@
 
 ## What is this
 
-Language tooling and code intelligence for markdown files:
+Language tooling and code intelligence for [Markdown](https://en.wikipedia.org/wiki/Markdown) files:
 
 * [x] Go to definition
 * [x] Find references

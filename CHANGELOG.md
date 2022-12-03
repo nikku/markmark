@@ -6,6 +6,10 @@ All notable changes to [markmark](https://github.com/nikku/markmark) are documen
 
 ___Note:__ Yet to be released changes appear here._
 
+## 0.2.0
+
+* `FEAT`: validate Markdown links
+
 ## 0.1.0
 
 * `FEAT`: add client side file watching support

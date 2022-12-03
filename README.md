@@ -14,6 +14,11 @@ Language tooling and code intelligence for markdown files:
 * [x] Complete links and tags
 * [X] Validate links
 
+Scalable across many Markdown files:
+
+* [x] Project awareness
+* [x] Built in or external file watching support
+
 Exposed as a library, but also as a [language server](https://microsoft.github.io/language-server-protocol/).
 
 

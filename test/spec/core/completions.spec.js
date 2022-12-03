@@ -7,17 +7,17 @@ import References from '../../../lib/core/references.js';
 import { EventEmitter } from 'node:events';
 
 import { expect } from 'chai';
-import { pathToFileURL } from 'node:url';
 
+import { fileUri } from './helper.js';
 
-const NOTES_ROOT_URI = pathToFileURL('test/fixtures/notes').toString();
-const IDEAS_URI = pathToFileURL('test/fixtures/notes/IDEAS.md').toString();
+const NOTES_ROOT_URI = fileUri('test/fixtures/notes');
+const IDEAS_URI = fileUri('test/fixtures/notes/IDEAS.md');
 
-const COMPLETIONS_ROOT_URI = pathToFileURL('test/fixtures/completions').toString();
-const BASE_URI = pathToFileURL('test/fixtures/completions/BASE.md').toString();
-const HEADING_URI = pathToFileURL('test/fixtures/completions/HEADING.md').toString();
-const ANCHOR_URI = pathToFileURL('test/fixtures/completions/ANCHOR.md').toString();
-const TAGGED_URI = pathToFileURL('test/fixtures/completions/TAGGED.md').toString();
+const COMPLETIONS_ROOT_URI = fileUri('test/fixtures/completions');
+const BASE_URI = fileUri('test/fixtures/completions/BASE.md');
+const HEADING_URI = fileUri('test/fixtures/completions/HEADING.md');
+const ANCHOR_URI = fileUri('test/fixtures/completions/ANCHOR.md');
+const TAGGED_URI = fileUri('test/fixtures/completions/TAGGED.md');
 
 
 describe('core/completions', () => {

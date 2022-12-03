@@ -5,7 +5,7 @@ import Workqueue from '../../../lib/core/workqueue.js';
 import { EventEmitter } from 'node:events';
 
 import { expect } from 'chai';
-import { pathToFileURL } from 'node:url';
+import { fileUri } from './helper.js';
 
 
 describe('core/indexer', () => {
@@ -178,7 +178,7 @@ describe('core/indexer', () => {
   }
 
   function addFile(path) {
-    const uri = pathToFileURL(path).toString();
+    const uri = fileUri(path);
 
     indexer.add(uri);
 

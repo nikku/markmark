@@ -6,6 +6,13 @@ All notable changes to [markmark](https://github.com/nikku/markmark) are documen
 
 ___Note:__ Yet to be released changes appear here._
 
+## 0.1.0
+
+* `FEAT`: add client side file watching support
+* `FEAT`: list references to external resources
+* `FEAT`: support goto definition for external resources
+* `FIX`: handle non-existing files
+
 ## 0.0.1
 
 _Initial release._

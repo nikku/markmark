@@ -12,6 +12,7 @@ Language tooling and code intelligence for markdown files:
 * [x] Go to definition
 * [x] Find references
 * [x] Complete links and tags
+* [X] Validate links
 
 Exposed as a library, but also as a [language server](https://microsoft.github.io/language-server-protocol/).
 

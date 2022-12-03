@@ -15,38 +15,90 @@ const remark = _remark();
 
 describe('core/markdown', () => {
 
-  it('should transform markdown', async () => {
+  describe('should transform markdown', () => {
 
-    // given
-    const markdown = `
-# Ideas
+    it('basic', async () => {
 
-#foo
+      // given
+      const markdown = `
+  # Ideas
 
-[](./NOTES.md)
-[[PUNCH_LINE]]
+  #foo
 
-## Connect This and That
+  [](./NOTES.md)
+  [[PUNCH_LINE]]
 
-To get super powers.
+  ## Connect This and That
+
+  To get super powers.
 
 
-[](./NOTES.md#deeplink)
+  [](./NOTES.md#deeplink)
 
-[local link](#ideas)
-`;
+  [local link](#ideas)
 
-    const file = toVFile({ value: markdown });
+  ![img](./image.png)
+  [image link](./img.svg)
 
-    // when
-    const tree = remark.parse(file);
+  [external-uri](https://foobar.com)
+  `;
 
-    const transformedTree = await remark.run(tree, file);
+      const file = toVFile({ value: markdown });
 
-    // then
-    expect(transformedTree.links).to.have.length(3);
-    expect(transformedTree.anchors).to.have.length(3);
-    expect(transformedTree.tags).to.have.length(1);
+      // when
+      const tree = remark.parse(file);
+
+      const transformedTree = await remark.run(tree, file);
+
+      // then
+      expect(transformedTree.links).to.have.length(6);
+      expect(transformedTree.anchors).to.have.length(3);
+      expect(transformedTree.tags).to.have.length(1);
+    });
+
+
+    it('external links', async () => {
+
+      // given
+      const markdown = `
+  [external-uri](https://foobar.com)
+  `;
+
+      const file = toVFile({ value: markdown });
+
+      // when
+      const tree = remark.parse(file);
+
+      const transformedTree = await remark.run(tree, file);
+
+      // then
+      expect(transformedTree.links).to.have.length(1);
+      expect(transformedTree.anchors).to.have.length(1);
+      expect(transformedTree.tags).to.have.length(0);
+    });
+
+
+    it('image links', async () => {
+
+      // given
+      const markdown = `
+  ![img](./image.png)
+  [image link](./img.svg)
+  `;
+
+      const file = toVFile({ value: markdown });
+
+      // when
+      const tree = remark.parse(file);
+
+      const transformedTree = await remark.run(tree, file);
+
+      // then
+      expect(transformedTree.links).to.have.length(2);
+      expect(transformedTree.anchors).to.have.length(1);
+      expect(transformedTree.tags).to.have.length(0);
+    });
+
   });
 
 

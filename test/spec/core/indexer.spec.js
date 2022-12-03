@@ -185,12 +185,11 @@ describe('core/indexer', () => {
     return uri;
   }
 
-  function on(event) {
-    return new Promise((resolve) => {
-      eventBus.once(event, resolve);
-    });
-  }
-
 });
 
 
+function on(event, eventBus) {
+  return new Promise((resolve) => {
+    eventBus.once(event, resolve);
+  });
+}

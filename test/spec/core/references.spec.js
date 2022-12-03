@@ -14,6 +14,8 @@ const require = createRequire(import.meta.url);
 
 const parseTree_IDEAS = require('./references.parseTree.IDEAS.json');
 const parseTree_NOTES = require('./references.parseTree.NOTES.json');
+const parseTree_EXTERNAL = require('./references.parseTree.EXTERNAL.json');
+const parseTree_IMG = require('./references.parseTree.IMG.json');
 
 
 describe('core/references', () => {
@@ -28,70 +30,118 @@ describe('core/references', () => {
 
   describe('update / removal', () => {
 
-    it('should update', () => {
+    describe('should update', () => {
 
-      const uri = 'file:///tmp/IDEAS.md';
+      it('basic', () => {
 
-      // given
-      const indexItem = createIndexItem({
-        uri,
-        parseTree: parseTree_IDEAS
-      });
-
-      // when
-      eventBus.emit('indexer:updated', indexItem);
-
-      // then
-      expectRefs(references.getAnchors(), [
-        {
-          uri: 'file:///tmp/IDEAS.md#ideas'
-        },
-        {
-          uri: 'file:///tmp/IDEAS.md#connect-this-and-that'
-        },
-        {
+        // when
+        triggerIndexed({
           uri: 'file:///tmp/IDEAS.md',
-          position: {
-            start: {
-              line: 0,
-              column: 0
-            },
-            end: {
-              line: 0,
-              column: 0
+          parseTree: parseTree_IDEAS
+        });
+
+        // then
+        expectRefs(references.getAnchors(), [
+          {
+            uri: 'file:///tmp/IDEAS.md#ideas'
+          },
+          {
+            uri: 'file:///tmp/IDEAS.md#connect-this-and-that'
+          },
+          {
+            uri: 'file:///tmp/IDEAS.md',
+            position: {
+              start: {
+                line: 0,
+                column: 0
+              },
+              end: {
+                line: 0,
+                column: 0
+              }
             }
           }
-        }
-      ]);
+        ]);
 
-      expectRefs(references.getLinks(), [
-        {
-          uri: 'file:///tmp/IDEAS.md',
-          targetUri: 'file:///tmp/NOTES.md'
-        },
-        {
-          uri: 'file:///tmp/IDEAS.md',
-          targetUri: 'file:///tmp/NOTES.md#deeplink'
-        },
-        {
-          uri: 'file:///tmp/IDEAS.md',
-          targetUri: 'file:///tmp/IDEAS.md#ideas'
-        }
-      ]);
+        expectRefs(references.getLinks(), [
+          {
+            uri: 'file:///tmp/IDEAS.md',
+            targetUri: 'file:///tmp/NOTES.md'
+          },
+          {
+            uri: 'file:///tmp/IDEAS.md',
+            targetUri: 'file:///tmp/NOTES.md#deeplink'
+          },
+          {
+            uri: 'file:///tmp/IDEAS.md',
+            targetUri: 'file:///tmp/IDEAS.md#ideas'
+          }
+        ]);
+      });
+
+
+      it('external links', () => {
+
+        // when
+        triggerIndexed({
+          uri: 'file:///tmp/EXTERNAL.md',
+          parseTree: parseTree_EXTERNAL
+        });
+
+        // then
+        expectRefs(references.getAnchors(), [
+          {
+            uri: 'file:///tmp/EXTERNAL.md'
+          }
+        ]);
+
+        expectRefs(references.getLinks(), [
+          {
+            uri: 'file:///tmp/EXTERNAL.md',
+            targetUri: 'https://github.com/'
+          }
+        ]);
+
+      });
+
+
+      it('images', () => {
+
+        // when
+        triggerIndexed({
+          uri: 'file:///tmp/IMG.md',
+          parseTree: parseTree_IMG
+        });
+
+        // then
+        expectRefs(references.getAnchors(), [
+          {
+            uri: 'file:///tmp/IMG.md'
+          }
+        ]);
+
+        expectRefs(references.getLinks(), [
+          {
+            uri: 'file:///tmp/IMG.md',
+            targetUri: 'file:///tmp/img.png'
+          },
+          {
+            uri: 'file:///tmp/IMG.md',
+            targetUri: 'file:///tmp/img.png'
+          }
+        ]);
+      });
+
     });
 
 
     it('should remove', () => {
 
-      const uri = 'file:///tmp/IDEAS.md';
-
       // given
-      const indexItem = createIndexItem({
-        uri,
+      const indexItem = triggerIndexed({
+        uri: 'file:///tmp/IDEAS.md',
         parseTree: parseTree_IDEAS
       });
-
-      eventBus.emit('indexer:updated', indexItem);
 
       // when
       eventBus.emit('indexer:removed', indexItem);
@@ -107,15 +157,27 @@ describe('core/references', () => {
   describe('querying', () => {
 
     beforeEach(() => {
-      eventBus.emit('indexer:updated', createIndexItem({
+
+      triggerIndexed({
         uri: 'file:///tmp/IDEAS.md',
         parseTree: parseTree_IDEAS
-      }));
+      });
 
-      eventBus.emit('indexer:updated', createIndexItem({
+      triggerIndexed({
         uri: 'file:///tmp/NOTES.md',
         parseTree: parseTree_NOTES
-      }));
+      });
+
+      triggerIndexed({
+        uri: 'file:///tmp/IMG.md',
+        parseTree: parseTree_IMG
+      });
+
+      triggerIndexed({
+        uri: 'file:///tmp/EXTERNAL.md',
+        parseTree: parseTree_EXTERNAL
+      });
+
     });
 
 
@@ -196,6 +258,63 @@ describe('core/references', () => {
           {
             uri: 'file:///tmp/IDEAS.md',
             targetUri: 'file:///tmp/NOTES.md'
+          }
+        ]);
+      });
+
+
+      it('to image', () => {
+
+        // when
+        const refs = references.findReferences({
+          uri: 'file:///tmp/IMG.md',
+          position: {
+            start: {
+              line: 3,
+              column: 1
+            },
+            end: {
+              line: 3,
+              column: 12
+            }
+          }
+        });
+
+        // then
+        expectRefs(refs, [
+          {
+            uri: 'file:///tmp/IMG.md',
+            targetUri: 'file:///tmp/img.png'
+          }, {
+            uri: 'file:///tmp/IMG.md',
+            targetUri: 'file:///tmp/img.png'
+          }
+        ]);
+      });
+
+
+      it('to external resource', () => {
+
+        // when
+        const refs = references.findReferences({
+          uri: 'file:///tmp/EXTERNAL.md',
+          position: {
+            start: {
+              line: 1,
+              column: 8
+            },
+            end: {
+              line: 1,
+              column: 8
+            }
+          }
+        });
+
+        // then
+        expectRefs(refs, [
+          {
+            uri: 'file:///tmp/EXTERNAL.md',
+            targetUri: 'https://github.com/'
           }
         ]);
       });
@@ -283,9 +402,69 @@ describe('core/references', () => {
         ]);
       });
 
+
+      it('to image', () => {
+
+        // when
+        const refs = references.findDefinitions({
+          uri: 'file:///tmp/IMG.md',
+          position: {
+            start: {
+              line: 1,
+              column: 8
+            },
+            end: {
+              line: 1,
+              column: 8
+            }
+          }
+        });
+
+        // then
+        expectRefs(refs, [
+          {
+            uri: 'file:///tmp/img.png'
+          }
+        ]);
+      });
+
+
+      it('to external URI', () => {
+
+        // when
+        const refs = references.findDefinitions({
+          uri: 'file:///tmp/EXTERNAL.md',
+          position: {
+            start: {
+              line: 1,
+              column: 8
+            },
+            end: {
+              line: 1,
+              column: 8
+            }
+          }
+        });
+
+        // then
+        expectRefs(refs, [
+          {
+            uri: 'https://github.com/'
+          }
+        ]);
+      });
     });
 
   });
+
+
+  function triggerIndexed(args) {
+    const indexItem = createIndexItem(args);
+
+    eventBus.emit('indexer:updated', indexItem);
+
+    return indexItem;
+  }
 
 });
 

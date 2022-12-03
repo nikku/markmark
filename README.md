@@ -31,9 +31,9 @@ npm install -g markmark
 
 ## Usage
 
-### [Language Server](https://microsoft.github.io/language-server-protocol/)
+### Language Server
 
-Start using `markmark-lsp` binary (depends on the LSP integration of your editor):
+Start using `markmark-lsp` binary (depends on the [language server protocol](https://microsoft.github.io/language-server-protocol/) integration of your editor):
 
 ```
 markmark-lsp --stdio

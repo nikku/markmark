@@ -29,12 +29,52 @@ npm install -g markmark
 ```
 
 
-## Use
+## Usage
 
-Start the language server (depends on the LSP integration of your editor):
+### Run as [Language Server](https://microsoft.github.io/language-server-protocol/)
+
+Start using `markmark-lsp` binary (depends on the LSP integration of your editor):
 
 ```
 markmark-lsp --stdio
+```
+
+
+### Use as a Library
+
+```javascript
+import { Markmark } from 'markmark';
+
+const markmark = new Markmark(console);
+
+// intialize
+markmark.init({ watch: true });
+
+// add a search root
+markmark.addRoot('file:///some-folder');
+
+// listen on <ready>
+markmark.on('ready', () => {
+  console.log('Markmark is ready!');
+});
+
+// find references at position
+const refs = markmark.findReferences({
+  uri: 'file:///some-folder/foo.md',
+  position: {
+    start: { line: 1, column: 5 },
+    end: { line: 1, column: 5 }
+  }
+});
+
+// find definitions at document position
+const defs = markmark.findDefinitions({
+  uri: 'file:///some-folder/foo.md',
+  position: {
+    start: { line: 1, column: 5 },
+    end: { line: 1, column: 5 }
+  }
+});
 ```
 
 

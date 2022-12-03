@@ -1,4 +1,3 @@
-import Watcher from '../../../lib/core/watcher.js';
 import Indexer from '../../../lib/core/indexer.js';
 import Processor from '../../../lib/core/processor.js';
 import Workqueue from '../../../lib/core/workqueue.js';
@@ -11,27 +10,25 @@ import { pathToFileURL } from 'node:url';
 
 describe('core/indexer', () => {
 
-  let watcher, processor, indexer, workqueue, eventBus;
+  let processor, indexer, workqueue, eventBus;
 
   beforeEach(() => {
     eventBus = new EventEmitter();
     workqueue = new Workqueue(eventBus);
     processor = new Processor(console);
-    watcher = new Watcher(console, eventBus);
     indexer = new Indexer(console, eventBus, processor, workqueue);
-  });
-
-  afterEach(() => {
-    return watcher.close();
   });
 
 
   it('should index directory', async () => {
 
     // when
-    watcher.addFolder(pathToFileURL('test/fixtures/notes').toString());
-
-    await on('indexer:ready', eventBus);
+    await addFiles([
+      'test/fixtures/notes/ideas/PUNCH_LINE.md',
+      'test/fixtures/notes/ideas/nested/NESTED_IDEAS.md',
+      'test/fixtures/notes/IDEAS.md',
+      'test/fixtures/notes/NOTES.md'
+    ]);
 
     // then
     const items = indexer.getItems();
@@ -56,9 +53,12 @@ describe('core/indexer', () => {
       items.push(item);
     });
 
-    watcher.addFolder(pathToFileURL('test/fixtures/notes').toString());
-
-    await on('indexer:ready', eventBus);
+    await addFiles([
+      'test/fixtures/notes/ideas/PUNCH_LINE.md',
+      'test/fixtures/notes/ideas/nested/NESTED_IDEAS.md',
+      'test/fixtures/notes/IDEAS.md',
+      'test/fixtures/notes/NOTES.md'
+    ]);
 
     // then
     expect(items).to.have.length(4);
@@ -81,9 +81,12 @@ describe('core/indexer', () => {
       removedItems.push(item);
     });
 
-    watcher.addFolder(pathToFileURL('test/fixtures/notes').toString());
-
-    await on('indexer:ready', eventBus);
+    await addFiles([
+      'test/fixtures/notes/ideas/PUNCH_LINE.md',
+      'test/fixtures/notes/ideas/nested/NESTED_IDEAS.md',
+      'test/fixtures/notes/IDEAS.md',
+      'test/fixtures/notes/NOTES.md'
+    ]);
 
     // when
     const [ firstItem ] = indexer.getItems();
@@ -105,10 +108,8 @@ describe('core/indexer', () => {
   it('should eagerly fetch index item', async () => {
 
     // given
-    const uri = pathToFileURL('test/fixtures/notes/IDEAS.md').toString();
-
     // file-backed version added
-    indexer.add(uri);
+    const uri = await addFile('test/fixtures/notes/IDEAS.md');
 
     // when
     const item = await indexer.get(uri);
@@ -151,10 +152,8 @@ describe('core/indexer', () => {
   it('should handle non-existing file', async () => {
 
     // given
-    const uri = pathToFileURL('test/fixtures/NON_EXISTING.md').toString();
-
     // file-backed version added
-    indexer.add(uri);
+    const uri = await addFile('test/fixtures/NON_EXISTING.md');
 
     // when
     const item = await indexer.get(uri);
@@ -166,11 +165,32 @@ describe('core/indexer', () => {
     expect(item.parseTree.tags).to.have.length(0);
   });
 
+
+  function addFiles(paths) {
+
+    for (const path of paths) {
+      addFile(path);
+    }
+
+    eventBus.emit('watcher:ready');
+
+    return on('indexer:ready');
+  }
+
+  function addFile(path) {
+    const uri = pathToFileURL(path).toString();
+
+    indexer.add(uri);
+
+    return uri;
+  }
+
+  function on(event) {
+    return new Promise((resolve) => {
+      eventBus.once(event, resolve);
+    });
+  }
+
 });
 
 
-function on(event, eventBus) {
-  return new Promise((resolve) => {
-    eventBus.once(event, resolve);
-  });
-}

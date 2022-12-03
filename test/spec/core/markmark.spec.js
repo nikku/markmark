@@ -1,6 +1,6 @@
 import Markmark from '../../../lib/core/markmark.js';
 
-import { pathToFileURL } from 'node:url';
+import { fileUri } from './helper.js';
 
 
 describe('core/markmark', () => {
@@ -19,7 +19,7 @@ describe('core/markmark', () => {
   it('should index directory', async () => {
 
     // when
-    markmark.addRoot(pathToFileURL('test/fixtures/notes').toString());
+    markmark.addRoot(fileUri('test/fixtures/notes'));
 
     await on('ready', markmark);
     await on('references:changed', markmark);

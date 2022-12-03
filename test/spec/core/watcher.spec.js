@@ -3,7 +3,7 @@ import Watcher from '../../../lib/core/watcher.js';
 import { EventEmitter } from 'node:events';
 
 import { expect } from 'chai';
-import { pathToFileURL } from 'node:url';
+import { fileUri } from './helper.js';
 
 
 describe('core/watcher', function() {
@@ -24,8 +24,8 @@ describe('core/watcher', function() {
   it('should watch directory', async () => {
 
     // when
-    watcher.addFolder(pathToFileURL('test/fixtures/notes').toString());
-    watcher.addFolder(pathToFileURL('test/fixtures/notes').toString());
+    watcher.addFolder(fileUri('test/fixtures/notes'));
+    watcher.addFolder(fileUri('test/fixtures/notes'));
 
     await on('watcher:ready', eventBus);
 

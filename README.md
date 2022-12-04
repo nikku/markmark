@@ -5,7 +5,7 @@
 [Markdown](https://en.wikipedia.org/wiki/Markdown) language tooling. Use standalone or plug-in as a [language server](https://microsoft.github.io/language-server-protocol/) into your favorite IDE.
 
 
-## What is this
+## Features
 
 Language tooling and code intelligence for [Markdown](https://en.wikipedia.org/wiki/Markdown) files:
 

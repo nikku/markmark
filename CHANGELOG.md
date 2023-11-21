@@ -6,6 +6,11 @@ All notable changes to [markmark](https://github.com/nikku/markmark) are documen
 
 ___Note:__ Yet to be released changes appear here._
 
+## 0.3.0
+
+* `DEPS`: update internal parsing libraries
+* `DEPS`: update language server dependencies
+
 ## 0.2.1
 
 * `FIX`: correctly reset invalid language server diagnostics

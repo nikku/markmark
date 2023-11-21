@@ -40,10 +40,10 @@
   },
   "devDependencies": {
     "@types/unist": "^2.0.6",
-    "chai": "^4.3.6",
+    "chai": "^4.3.10",
     "eslint": "^8.26.0",
     "eslint-plugin-bpmn-io": "^0.16.0",
-    "mocha": "^10.1.0",
+    "mocha": "^10.2.0",
     "type-coverage": "^2.0.0"
   },
   "scripts": {

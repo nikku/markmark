@@ -25,7 +25,7 @@
     "lib"
   ],
   "dependencies": {
-    "chokidar": "^3.5.3",
+    "chokidar": "^4.0.0",
     "github-slugger": "^2.0.0",
     "mdast-util-to-string": "^4.0.0",
     "micromark-util-character": "^2.0.1",

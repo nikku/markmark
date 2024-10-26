@@ -46,8 +46,8 @@
   "devDependencies": {
     "@types/unist": "^3.0.2",
     "chai": "^5.0.0",
-    "eslint": "^9.0.0",
-    "eslint-plugin-bpmn-io": "^2.0.0",
+    "eslint": "^9.13.0",
+    "eslint-plugin-bpmn-io": "^2.0.2",
     "mocha": "^10.2.0"
   },
   "scripts": {

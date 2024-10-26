@@ -16,12 +16,12 @@ const require = createRequire(import.meta.url);
 const results_README = require('./linter.results.README.json');
 
 
-describe('core/linter', () => {
+describe('core/linter', function() {
 
   let processor, indexer,
       workqueue, eventBus, references;
 
-  beforeEach(() => {
+  beforeEach(function() {
     eventBus = new EventEmitter();
     workqueue = new Workqueue(eventBus);
     processor = new Processor(console);
@@ -32,7 +32,7 @@ describe('core/linter', () => {
   });
 
 
-  it('should lint directory', async () => {
+  it('should lint directory', async function() {
 
     // given
     const uris = await addFiles([

@@ -14,11 +14,11 @@ const parseTree_LINKS = require('./markdown.parseTree.LINKS.json');
 const remark = _remark();
 
 
-describe('core/markdown', () => {
+describe('core/markdown', function() {
 
-  describe('should transform markdown', () => {
+  describe('should transform markdown', function() {
 
-    it('basic', async () => {
+    it('basic', async function() {
 
       // given
       const markdown = `
@@ -58,7 +58,7 @@ describe('core/markdown', () => {
     });
 
 
-    it('external links', async () => {
+    it('external links', async function() {
 
       // given
       const markdown = `
@@ -79,7 +79,7 @@ describe('core/markdown', () => {
     });
 
 
-    it('image links', async () => {
+    it('image links', async function() {
 
       // given
       const markdown = `
@@ -103,7 +103,7 @@ describe('core/markdown', () => {
   });
 
 
-  it('should recognize tags', async () => {
+  it('should recognize tags', async function() {
 
     // given
     const markdown = `

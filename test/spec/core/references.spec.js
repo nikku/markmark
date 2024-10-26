@@ -18,21 +18,21 @@ const parseTree_EXTERNAL = require('./references.parseTree.EXTERNAL.json');
 const parseTree_IMG = require('./references.parseTree.IMG.json');
 
 
-describe('core/references', () => {
+describe('core/references', function() {
 
   let eventBus, references;
 
-  beforeEach(() => {
+  beforeEach(function() {
     eventBus = new EventEmitter();
     references = new References(console, eventBus);
   });
 
 
-  describe('update / removal', () => {
+  describe('update / removal', function() {
 
-    describe('should update', () => {
+    describe('should update', function() {
 
-      it('basic', () => {
+      it('basic', function() {
 
         // when
         triggerIndexed({
@@ -80,7 +80,7 @@ describe('core/references', () => {
       });
 
 
-      it('external links', () => {
+      it('external links', function() {
 
         // when
         triggerIndexed({
@@ -105,7 +105,7 @@ describe('core/references', () => {
       });
 
 
-      it('images', () => {
+      it('images', function() {
 
         // when
         triggerIndexed({
@@ -135,7 +135,7 @@ describe('core/references', () => {
     });
 
 
-    it('should remove', () => {
+    it('should remove', function() {
 
       // given
       const indexItem = triggerIndexed({
@@ -154,9 +154,9 @@ describe('core/references', () => {
   });
 
 
-  describe('querying', () => {
+  describe('querying', function() {
 
-    beforeEach(() => {
+    beforeEach(function() {
 
       triggerIndexed({
         uri: 'file:///tmp/IDEAS.md',
@@ -181,9 +181,9 @@ describe('core/references', () => {
     });
 
 
-    describe('should find references', () => {
+    describe('should find references', function() {
 
-      it('to anchor', () => {
+      it('to anchor', function() {
 
         // when
         const refs = references.findReferences({
@@ -210,7 +210,7 @@ describe('core/references', () => {
       });
 
 
-      it('to tag', () => {
+      it('to tag', function() {
 
         // when
         const refs = references.findReferences({
@@ -236,7 +236,7 @@ describe('core/references', () => {
       });
 
 
-      it('to document', () => {
+      it('to document', function() {
 
         // when
         const refs = references.findReferences({
@@ -263,7 +263,7 @@ describe('core/references', () => {
       });
 
 
-      it('to image', () => {
+      it('to image', function() {
 
         // when
         const refs = references.findReferences({
@@ -293,7 +293,7 @@ describe('core/references', () => {
       });
 
 
-      it('to external resource', () => {
+      it('to external resource', function() {
 
         // when
         const refs = references.findReferences({
@@ -320,7 +320,7 @@ describe('core/references', () => {
       });
 
 
-      it('of link', () => {
+      it('of link', function() {
 
         // when
         const refs = references.findReferences({
@@ -349,9 +349,9 @@ describe('core/references', () => {
     });
 
 
-    describe('should find definition', () => {
+    describe('should find definition', function() {
 
-      it('to document link', () => {
+      it('to document link', function() {
 
         // when
         const refs = references.findDefinitions({
@@ -377,7 +377,7 @@ describe('core/references', () => {
       });
 
 
-      it('to deep link', () => {
+      it('to deep link', function() {
 
         // when
         const refs = references.findDefinitions({
@@ -403,7 +403,7 @@ describe('core/references', () => {
       });
 
 
-      it('to image', () => {
+      it('to image', function() {
 
         // when
         const refs = references.findDefinitions({
@@ -429,7 +429,7 @@ describe('core/references', () => {
       });
 
 
-      it('to external URI', () => {
+      it('to external URI', function() {
 
         // when
         const refs = references.findDefinitions({

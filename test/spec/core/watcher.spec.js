@@ -10,18 +10,18 @@ describe('core/watcher', function() {
 
   let watcher, eventBus;
 
-  beforeEach(() => {
+  beforeEach(function() {
     eventBus = new EventEmitter();
 
     watcher = new Watcher(console, eventBus);
   });
 
-  afterEach(() => {
+  afterEach(function() {
     return watcher.close();
   });
 
 
-  it('should watch directory', async () => {
+  it('should watch directory', async function() {
 
     // when
     watcher.addFolder(fileUri('test/fixtures/notes'));

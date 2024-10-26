@@ -196,6 +196,24 @@ describe('core/completions', function() {
   });
 
 
+  it('should NOT complete text within root', async function() {
+
+    // asdf yes| no
+
+    // when
+    const refCompletions = await completions.get({
+      uri: BASE_URI,
+      position: {
+        line: 12,
+        column: 10
+      }
+    });
+
+    // then
+    expect(refCompletions).to.eql([]);
+  });
+
+
   it('should complete link ref', async function() {
 
     // [](|)
@@ -341,7 +359,7 @@ describe('core/completions', function() {
   });
 
 
-  it('should complete link ref within root', async function() {
+  it('should complete link ref with # prefix', async function() {
 
     // [](|)
 
@@ -350,12 +368,36 @@ describe('core/completions', function() {
       uri: BASE_URI,
       position: {
         line: 5,
-        column: 9
+        column: 5
       }
     });
 
+    const expectedCompletions = [
+      './ANCHOR.md#anchor',
+      './ANCHOR.md#deeplink',
+      '#local',
+      './TAGGED.md#tagged'
+    ].map(ref => ({
+      'label': ref,
+      'replace': {
+        'position': {
+          'start': {
+            'line': 5,
+            'column': 4,
+            'offset': 30
+          },
+          'end': {
+            'line': 5,
+            'column': 5,
+            'offset': 31
+          }
+        },
+        'newText': ref
+      }
+    }));
+
     // then
-    expect(refCompletions).to.eql([]);
+    expect(refCompletions).to.eql(expectedCompletions);
   });
 
 

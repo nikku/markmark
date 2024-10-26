@@ -102,6 +102,8 @@ describe('core/completions', function() {
 
   it('should complete text <#>', async function() {
 
+    // #fo #| #fooop
+
     // when
     const items = await completions.get({
       uri: BASE_URI,
@@ -142,6 +144,8 @@ describe('core/completions', function() {
 
   it('should complete heading <#>', async function() {
 
+    // #|
+
     // when
     const items = await completions.get({
       uri: HEADING_URI,
@@ -181,6 +185,8 @@ describe('core/completions', function() {
 
 
   it('should NOT complete link name', async function() {
+
+    // [|]()
 
     // when
     const nameCompletions = await completions.get({
@@ -521,7 +527,7 @@ describe('core/completions', function() {
 
   it('should complete link (with image) ref', async function() {
 
-    // [](./A|N)
+    // [![asd](./asd.png)](./A|N)
 
     // when
     const refCompletions = await completions.get({

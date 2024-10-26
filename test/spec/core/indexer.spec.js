@@ -8,11 +8,11 @@ import { expect } from 'chai';
 import { fileUri } from './helper.js';
 
 
-describe('core/indexer', () => {
+describe('core/indexer', function() {
 
   let processor, indexer, workqueue, eventBus;
 
-  beforeEach(() => {
+  beforeEach(function() {
     eventBus = new EventEmitter();
     workqueue = new Workqueue(eventBus);
     processor = new Processor(console);
@@ -20,7 +20,7 @@ describe('core/indexer', () => {
   });
 
 
-  it('should index directory', async () => {
+  it('should index directory', async function() {
 
     // when
     await addFiles([
@@ -44,7 +44,7 @@ describe('core/indexer', () => {
   });
 
 
-  it('should emit <indexer.updated>', async () => {
+  it('should emit <indexer.updated>', async function() {
 
     // when
     const items = [];
@@ -72,7 +72,7 @@ describe('core/indexer', () => {
   });
 
 
-  it('should remove item', async () => {
+  it('should remove item', async function() {
 
     // given
     const removedItems = [];
@@ -105,7 +105,7 @@ describe('core/indexer', () => {
   });
 
 
-  it('should eagerly fetch index item', async () => {
+  it('should eagerly fetch index item', async function() {
 
     // given
     // file-backed version added
@@ -149,7 +149,7 @@ describe('core/indexer', () => {
   });
 
 
-  it('should handle non-existing file', async () => {
+  it('should handle non-existing file', async function() {
 
     // given
     // file-backed version added

@@ -20,12 +20,12 @@ const ANCHOR_URI = fileUri('test/fixtures/completions/ANCHOR.md');
 const TAGGED_URI = fileUri('test/fixtures/completions/TAGGED.md');
 
 
-describe('core/completions', () => {
+describe('core/completions', function() {
 
   let processor, indexer, workqueue,
       eventBus, completions, references;
 
-  beforeEach(() => {
+  beforeEach(function() {
     eventBus = new EventEmitter();
     workqueue = new Workqueue(eventBus);
     processor = new Processor(console);
@@ -35,7 +35,7 @@ describe('core/completions', () => {
   });
 
 
-  beforeEach(async () => {
+  beforeEach(async function() {
     indexer.addRoot(COMPLETIONS_ROOT_URI);
     await indexer.add(ANCHOR_URI);
     await indexer.add(BASE_URI);
@@ -47,7 +47,7 @@ describe('core/completions', () => {
   });
 
 
-  it('should complete tag', async () => {
+  it('should complete tag', async function() {
 
     // when
     const items = await completions.get({
@@ -100,7 +100,7 @@ describe('core/completions', () => {
   });
 
 
-  it('should complete text <#>', async () => {
+  it('should complete text <#>', async function() {
 
     // when
     const items = await completions.get({
@@ -140,7 +140,7 @@ describe('core/completions', () => {
   });
 
 
-  it('should complete heading <#>', async () => {
+  it('should complete heading <#>', async function() {
 
     // when
     const items = await completions.get({
@@ -180,7 +180,7 @@ describe('core/completions', () => {
   });
 
 
-  it('should NOT complete link name', async () => {
+  it('should NOT complete link name', async function() {
 
     // when
     const nameCompletions = await completions.get({
@@ -196,7 +196,7 @@ describe('core/completions', () => {
   });
 
 
-  it('should complete link ref', async () => {
+  it('should complete link ref', async function() {
 
     // [](|)
 
@@ -341,7 +341,7 @@ describe('core/completions', () => {
   });
 
 
-  it('should complete link ref within root', async () => {
+  it('should complete link ref within root', async function() {
 
     // [](|)
 
@@ -359,7 +359,52 @@ describe('core/completions', () => {
   });
 
 
-  it('should complete link ref with prefix', async () => {
+  it('should complete link with name ref', async function() {
+
+    // [foo](|)
+
+    // when
+    const refCompletions = await completions.get({
+      uri: BASE_URI,
+      position: {
+        line: 4,
+        column: 7
+      }
+    });
+
+    const expectedCompletions = [
+      './ANCHOR.md#anchor',
+      './ANCHOR.md#deeplink',
+      './ANCHOR.md',
+      '#local',
+      './TAGGED.md#tagged',
+      './TAGGED.md',
+      './HEADING.md'
+    ].map(ref => ({
+      'label': ref,
+      'replace': {
+        'position': {
+          'start': {
+            'line': 4,
+            'column': 7,
+            'offset': 25
+          },
+          'end': {
+            'line': 4,
+            'column': 7,
+            'offset': 25
+          }
+        },
+        'newText': ref
+      }
+    }));
+
+    // then
+    expect(refCompletions).to.eql(expectedCompletions);
+  });
+
+
+  it('should complete link ref with prefix', async function() {
 
     // [](./A|N)
 
@@ -432,7 +477,7 @@ describe('core/completions', () => {
   });
 
 
-  it('should complete link (with image) ref', async () => {
+  it('should complete link (with image) ref', async function() {
 
     // [](./A|N)
 
@@ -462,51 +507,6 @@ describe('core/completions', () => {
             'line': 8,
             'column': 25,
             'offset': 74
-          }
-        },
-        'newText': ref
-      }
-    }));
-
-    // then
-    expect(refCompletions).to.eql(expectedCompletions);
-  });
-
-
-  it('should complete link (with image) ref', async () => {
-
-    // [](./A|N)
-
-    // when
-    const refCompletions = await completions.get({
-      uri: BASE_URI,
-      position: {
-        line: 4,
-        column: 7
-      }
-    });
-
-    const expectedCompletions = [
-      './ANCHOR.md#anchor',
-      './ANCHOR.md#deeplink',
-      './ANCHOR.md',
-      '#local',
-      './TAGGED.md#tagged',
-      './TAGGED.md',
-      './HEADING.md'
-    ].map(ref => ({
-      'label': ref,
-      'replace': {
-        'position': {
-          'start': {
-            'line': 4,
-            'column': 7,
-            'offset': 25
-          },
-          'end': {
-            'line': 4,
-            'column': 7,
-            'offset': 25
           }
         },
         'newText': ref

@@ -3,22 +3,22 @@ import Markmark from '../../../lib/core/markmark.js';
 import { fileUri } from './helper.js';
 
 
-describe('core/markmark', () => {
+describe('core/markmark', function() {
 
   let markmark;
 
-  beforeEach(() => {
+  beforeEach(function() {
     markmark = new Markmark(console);
   });
 
-  afterEach(() => {
+  afterEach(function() {
     return markmark.close();
   });
 
 
-  describe('should index', () => {
+  describe('should index', function() {
 
-    it('internal watcher', async () => {
+    it('internal watcher', async function() {
 
       // given
       markmark.init({ watch: true });
@@ -32,7 +32,7 @@ describe('core/markmark', () => {
     });
 
 
-    it('external file change handler', async () => {
+    it('external file change handler', async function() {
 
       // given
       markmark.init({ watch: false });

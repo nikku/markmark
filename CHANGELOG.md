@@ -6,6 +6,10 @@ All notable changes to [markmark](https://github.com/nikku/markmark) are documen
 
 ___Note:__ Yet to be released changes appear here._
 
+## 0.4.0
+
+* `DEPS`: bump to `chokidar@4`
+
 ## 0.3.0
 
 * `DEPS`: update internal parsing libraries

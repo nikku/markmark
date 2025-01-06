@@ -1,16 +1,31 @@
 import { VFile } from 'vfile';
 
 import { Position, Point } from 'unist';
-import { Node as UnistNode } from 'unist';
+import { Node as UnistNode, Parent as UnistParent } from 'unist';
 
 import { Root, Content, Heading, Definition } from 'mdast';
 
 export type Node = (Content|Root) & UnistNode;
+export type Parent = UnistParent;
 
-export type DocumentRange = {
-  uri?: string,
-  position: Position,
-  value?: string
+export type Positioned = {
+  position: Position
+};
+
+export type DocumentRange = Positioned & {
+  uri: string
+};
+
+export type LocalLink = Positioned & {
+  targetUri: string
+};
+
+export type LocalAnchor = Positioned & {
+  uri: string
+};
+
+export type LocalTag = Positioned & {
+  value: string
 };
 
 export type DocumentLocation = {
@@ -21,14 +36,9 @@ export type DocumentLocation = {
 export type File = VFile;
 
 export type TaggedRoot = Root & {
-  anchors: DocumentRange[],
-  links: DocumentRange[],
-  tags: DocumentRange[]
-};
-
-export type Positioned = {
-  uri: string,
-  position: Position
+  anchors: LocalAnchor[],
+  links: LocalLink[],
+  tags: LocalTag[]
 };
 
 export type Completion = {
@@ -42,7 +52,7 @@ export type Completion = {
 
 export type LinterResult = {
   message: string,
-  severity: 'warn' | 'error' | undefined,
+  severity: 'warn' | 'error' | 'info' | 'hint',
   position: Position
 };
 
@@ -51,13 +61,16 @@ export type LinterResults = {
   results: LinterResult[]
 };
 
-export interface IndexItem extends Record<string, any> {
+export type IndexItem = Record<string, unknown> & {
   uri: string,
   value?: string,
   version?: number,
   localValue?: string,
-  file: File,
-  parseTree?: Root
+  file: File
+}
+
+export type ParsedIndexItem = IndexItem & {
+  parseTree: TaggedRoot
 }
 
 export {

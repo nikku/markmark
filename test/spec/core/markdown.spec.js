@@ -11,10 +11,10 @@ const require = createRequire(import.meta.url);
 const parseTree_LINKS = require('./markdown.parseTree.LINKS.json');
 
 
-const remark = _remark();
-
-
 describe('core/markdown', function() {
+
+  const remark = _remark();
+
 
   describe('should transform markdown', function() {
 

@@ -22,8 +22,36 @@ const TAGGED_URI = fileUri('test/fixtures/completions/TAGGED.md');
 
 describe('core/completions', function() {
 
-  let processor, indexer, workqueue,
-      eventBus, completions, references;
+  /**
+   * @type { Processor }
+   */
+  let processor;
+
+  /**
+   * @type { Indexer }
+   */
+  let indexer;
+
+  /**
+   * @type { Workqueue }
+   */
+  let workqueue;
+
+  /**
+   * @type { EventEmitter }
+   */
+  let eventBus;
+
+  /**
+   * @type { Completions }
+   */
+  let completions;
+
+  /**
+   * @type { References }
+   */
+  let references;
+
 
   beforeEach(function() {
     eventBus = new EventEmitter();

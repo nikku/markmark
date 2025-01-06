@@ -1,16 +1,20 @@
 {
-  "include": ["*.js"],
+  "include": [
+    "**/*.js",
+    "**/*.d.ts"
+  ],
   "compilerOptions": {
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
     "checkJs": true,
     "declaration": true,
-    "lib": ["ES2020"],
-    "module": "ES2020",
-    "moduleResolution": "node",
+    "lib": ["ES2022"],
+    "moduleResolution": "nodenext",
+    "module": "NodeNext",
     "noEmit": true,
     "skipLibCheck": true,
     "strict": true,
-    "target": "ES2020"
+    "noImplicitAny": false
   }
 }

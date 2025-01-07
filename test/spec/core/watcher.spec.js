@@ -33,6 +33,23 @@ describe('core/watcher', function() {
     expect(watcher.getFiles()).to.have.length(4);
   });
 
+
+  it('should unwatch directory', async function() {
+
+    // given
+    watcher.addFolder(fileUri('test/fixtures/notes'));
+
+    await on('watcher:ready', eventBus);
+
+    // when
+    watcher.removeFolder(fileUri('test/fixtures/notes'));
+
+    await on('watcher:changed', eventBus);
+
+    // then
+    expect(watcher.getFiles()).to.be.empty;
+  });
+
 });
 
 

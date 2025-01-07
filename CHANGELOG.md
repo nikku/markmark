@@ -6,6 +6,11 @@ All notable changes to [markmark](https://github.com/nikku/markmark) are documen
 
 ___Note:__ Yet to be released changes appear here._
 
+## 0.5.1
+
+* `FIX`: keep locally open file representation when unwatched ([#12](https://github.com/nikku/markmark/pull/12))
+* `FIX`: remove files when unwatching folder ([#11](https://github.com/nikku/markmark/pull/11))
+
 ## 0.5.0
 
 * `FEAT`: improve general robustness

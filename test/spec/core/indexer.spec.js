@@ -166,6 +166,62 @@ describe('core/indexer', function() {
   });
 
 
+  it('should keep local file after file indexing', async function() {
+
+    // given
+    const uri = fileUri('test/fixtures/notes/IDEAS.md');
+
+    await indexer.fileOpen({
+      uri,
+      value: 'FOO'
+    });
+
+    // when
+    const item = await indexer.add(uri);
+
+    // then
+    expect(item.value).to.eql('FOO');
+
+    expect(
+      indexer.getItems()
+    ).to.have.length(1);
+  });
+
+
+  it('should keep local file after removing globally indexed', async function() {
+
+    // given
+    const removedItems = [];
+
+    eventBus.on('indexer:removed', (item) => {
+      removedItems.push(item);
+    });
+
+    const uri = fileUri('test/fixtures/notes/IDEAS.md');
+
+    await indexer.fileOpen({
+      uri,
+      value: 'FOO'
+    });
+
+    const item = await indexer.add(uri);
+
+    // when
+    // removing global item
+    await indexer.remove(uri);
+
+    // then
+    // item still locally opened
+    expect(removedItems).to.be.empty;
+
+    // removing local item
+    await indexer.fileClosed(uri);
+
+    // then
+    expect(removedItems).to.eql([ item ]);
+  });
+
+
   function addFiles(paths) {
 
     for (const path of paths) {

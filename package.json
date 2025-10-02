@@ -44,14 +44,14 @@
     "vscode-languageserver-textdocument": "^1.0.12"
   },
   "devDependencies": {
-    "@types/chai": "^4.3.20",
+    "@types/chai": "^5.0.0",
     "@types/mocha": "^10.0.10",
     "@types/node": "^20.17.11",
     "@types/unist": "^3.0.3",
-    "chai": "^5.1.2",
+    "chai": "^6.0.0",
     "eslint": "^9.17.0",
     "eslint-plugin-bpmn-io": "^2.0.2",
-    "mocha": "^10.7.3",
+    "mocha": "^11.0.0",
     "typescript": "^5.7.2"
   },
   "scripts": {

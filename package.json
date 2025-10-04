@@ -52,7 +52,7 @@
     "eslint": "^9.37.0",
     "eslint-plugin-bpmn-io": "^2.2.0",
     "mocha": "^11.0.0",
-    "typescript": "^5.7.2"
+    "typescript": "^5.9.3"
   },
   "scripts": {
     "all": "npm run lint && npm test",

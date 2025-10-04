@@ -31,7 +31,7 @@
     "micromark-util-character": "^2.1.1",
     "micromark-util-symbol": "^2.0.1",
     "remark-frontmatter": "^5.0.0",
-    "remark-gfm": "^4.0.0",
+    "remark-gfm": "^4.0.1",
     "remark-parse": "^11.0.0",
     "to-vfile": "^8.0.0",
     "unified": "^11.0.5",

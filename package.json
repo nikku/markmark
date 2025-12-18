@@ -18,7 +18,7 @@
     "markmark-lsp": "./bin/lsp.js"
   },
   "engines": {
-    "node": ">= 16"
+    "node": ">= 20.12"
   },
   "files": [
     "bin",

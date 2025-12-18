@@ -6,6 +6,13 @@ All notable changes to [markmark](https://github.com/nikku/markmark) are documen
 
 ___Note:__ Yet to be released changes appear here._
 
+## 0.6.0
+
+* `CHORE`: require `Node >= 20.12`
+* `DEPS`: update to `chokidar@5.0.0`
+* `DEPS`: update to `vfile-message@4.0.3`
+* `DEPS`: update to `remark-gfm@4.0.1`
+
 ## 0.5.1
 
 * `FIX`: keep locally open file representation when unwatched ([#12](https://github.com/nikku/markmark/pull/12))

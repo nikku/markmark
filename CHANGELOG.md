@@ -6,6 +6,11 @@ All notable changes to [markmark](https://github.com/nikku/markmark) are documen
 
 ___Note:__ Yet to be released changes appear here._
 
+## 0.7.0
+
+* `DEPS`: update to `unist-util-visit@5.1.0`
+* `DEPS`: update to `vscode-languageserver@10.0.1`
+
 ## 0.6.0
 
 * `CHORE`: require `Node >= 20.12`

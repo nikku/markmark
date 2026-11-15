@@ -6,6 +6,8 @@ All notable changes to [markmark](https://github.com/nikku/markmark) are documen
 
 ___Note:__ Yet to be released changes appear here._
 
+## 0.8.0
+
 * `DEPS`: update to `unist-util-visit@5.2.0`
 * `DEPS`: update to `vfile-message@4.0.4`
 * `DEPS`: update to `vfile-location@5.0.4`

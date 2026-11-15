@@ -6,6 +6,7 @@ All notable changes to [markmark](https://github.com/nikku/markmark) are documen
 
 ___Note:__ Yet to be released changes appear here._
 
+* `DEPS`: update to `chokidar@6.0.0`
 * `DEPS`: update to `vscode-languageserver@10.1.1`
 * `DEPS`: update to `vscode-languageserver-textdocument@1.0.14`
 
